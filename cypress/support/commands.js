@@ -36,6 +36,35 @@ Cypress.Commands.add("LoginAPI", ()=>{
 
 })
 
+Cypress.Commands.add("comprarProducto", (producto,idproducto)=>{
+
+    
+   
+    cy.wait(5000)
+    cy.get('[style="grid-area:search"] > .sc-dkIXZx > .sc-dFJtaz').type(producto)
+    cy.get('[style="grid-area:search"] > .sc-dkIXZx > .sc-ikPAEB').click()
+
+    cy.wait(5000)
+    cy.get('[data-test-id="result-item"]').each(($el,index,$list)=>{
+        let tv = $el.text()
+        if(tv.includes(idproducto)){
+            cy.wrap($el).click()      
+        }
+    })
+    cy.wait(5000)
+    cy.get('[data-test-id="product-buy-button"]').eq(1).click()
+    cy.wait(22000)
+    cy.get('.item-remove').eq(1).click()
+    cy.wait(5000)
+    cy.get('.empty-cart-title').should('have.text', 'Su carrito está vacio').and('be.visible')
+    cy.get('.empty-cart-message > p').should('have.text', 'Para seguir comprando, navegar por las categorías en el sitio, o busque su producto.').and('be.visible')
+    cy.wait(2000)
+    //Volver a elegir productos
+
+    cy.get('#cart-choose-products').click()
+
+})
+
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })

@@ -53,7 +53,7 @@ Cypress.Commands.add("comprarProducto", (producto,idproducto)=>{
     })
     cy.wait(5000)
     cy.get('[data-test-id="product-buy-button"]').eq(1).click()
-    cy.wait(22000)
+    cy.wait(26000)
     cy.get('.item-remove').eq(1).click()
     cy.wait(5000)
     cy.get('.empty-cart-title').should('have.text', 'Su carrito está vacio').and('be.visible')
